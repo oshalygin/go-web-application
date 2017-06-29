@@ -35,7 +35,10 @@ func main() {
 			contentType = "text/html"
 		case strings.HasSuffix(r.URL.Path, "ico"):
 			contentType = "image/ico"
+		default:
+			contentType = "text/plain"
 		}
+
 		w.Header().Add("Content-Type", contentType)
 		io.Copy(w, file)
 	})
