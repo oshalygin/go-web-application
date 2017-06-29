@@ -1,11 +1,26 @@
 package main
 
-import "net/http"
+import (
+	"io"
+	"log"
+	"net/http"
+	"os"
+)
 
 func main() {
+	const PORT = ":8080"
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("Hello World"))
+		filePath := "public" + r.URL.Path
+		file, err := os.Open(filePath)
+		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+			log.Println(err)
+		}
+
+		defer file.Close()
+		io.Copy(w, file)
 	})
 
-	http.ListenAndServe(":8080", nil)
+	http.ListenAndServe(PORT, nil)
+
 }
