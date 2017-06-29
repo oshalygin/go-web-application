@@ -1,17 +1,11 @@
 package main
 
-import (
-	"flag"
-	"log"
-	"net/http"
-)
+import "net/http"
 
 func main() {
-	port := flag.String("p", "8080", "port")
-	dir := flag.String("d", ".", "dir")
-	flag.Parse()
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte("Hello World"))
+	})
 
-	http.Handle("/", http.FileServer(http.Dir(*dir)))
-	log.Printf("Serving %s on Http Port: %s\n", *dir, *port)
-	log.Fatal(http.ListenAndServe(":"+*port, nil))
+	http.ListenAndServe(":8080", nil)
 }
