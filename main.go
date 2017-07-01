@@ -1,10 +1,22 @@
 package main
 
 import (
-	"net/http"
+	"html/template"
+	"log"
+	"os"
 )
 
 func main() {
-	const PORT string = ":8080"
-	http.ListenAndServe(PORT, http.FileServer(http.Dir("public")))
+	templateString := `Foobar Stand Supply`
+	t, err := template.New("title").Parse(templateString)
+
+	if err != nil {
+		log.Println(err)
+	}
+
+	err = t.Execute(os.Stdout, nil)
+	if err != nil {
+		log.Println(err)
+	}
+
 }
