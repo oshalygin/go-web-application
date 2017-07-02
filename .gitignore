@@ -1,6 +1,9 @@
 # IntelliJ stuff
 .idea/
 
+# Node packages
+node_modules/
+
 # Mac files
 .DS_Store
 
