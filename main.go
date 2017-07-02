@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	templateString := `Foobar Stand Supply`
+	templateString := `Foobar template`
 	t, err := template.New("title").Parse(templateString)
 
 	if err != nil {
